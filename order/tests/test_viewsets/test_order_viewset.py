@@ -50,7 +50,7 @@ class TestOrderViewSet(APITestCase):
         product = ProductFactory()
         data = json.dumps({
             'products_id': [product.id],
-            'user': user.id
+            'user': self.user.id
         })
 
         response = self.client.post(
@@ -61,5 +61,5 @@ class TestOrderViewSet(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        created_order = Order.objects.get(user=user) 
-    
+        created_order = Order.objects.get(user=self.user) 
+        self.assertEqual(created_order.user, self.user)
