@@ -1,5 +1,5 @@
 # Base image com Python 3.12.1
-FROM python:3.12.1-slim as python-base
+FROM python:3.12.1-slim AS python-base
 
 # Variáveis de ambiente
 ENV PYTHONUNBUFFERED=1 \
@@ -35,10 +35,7 @@ WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # Instala as dependências do projeto
-RUN poetry install --no-dev
-
-# Instala todas as dependências (incluindo dev)
-RUN poetry install
+RUN poetry install --only main --no-root
 
 # Define o diretório de trabalho da aplicação
 WORKDIR /app
