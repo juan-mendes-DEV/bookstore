@@ -23,9 +23,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # Instala o Poetry usando pip
 RUN pip install poetry
 
-# Inicializa um projeto Poetry (opcional, se você já tiver pyproject.toml)
-# RUN poetry init
-
 # Instala dependências do Postgres
 RUN apt-get update && apt-get -y install libpq-dev gcc \
     && pip install psycopg2
@@ -36,6 +33,7 @@ COPY poetry.lock pyproject.toml ./
 
 # Instala as dependências do projeto
 RUN poetry install --only main --no-root
+
 
 # Define o diretório de trabalho da aplicação
 WORKDIR /app
