@@ -1,5 +1,5 @@
 # Base image com Python 3.12.1
-FROM python:3.12.1-slim as python-base
+FROM python:3.12.1-slim AS python-base
 
 # Variáveis de ambiente
 ENV PYTHONUNBUFFERED=1 \
@@ -23,9 +23,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # Instala o Poetry usando pip
 RUN pip install poetry
 
-# Inicializa um projeto Poetry (opcional, se você já tiver pyproject.toml)
-# RUN poetry init
-
 # Instala dependências do Postgres
 RUN apt-get update && apt-get -y install libpq-dev gcc \
     && pip install psycopg2
@@ -34,11 +31,8 @@ RUN apt-get update && apt-get -y install libpq-dev gcc \
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
-# Instala as dependências do projeto
-RUN poetry install --no-dev
-
-# Instala todas as dependências (incluindo dev)
-RUN poetry install
+# Instala as dependências do projeto (incluindo as de desenvolvimento)
+RUN poetry install --no-root
 
 # Define o diretório de trabalho da aplicação
 WORKDIR /app
