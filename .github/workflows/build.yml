@@ -26,9 +26,15 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry==${{ matrix.poetry-version }}
 
+    - name: Verify Poetry installation
+      run: poetry --version  # Verifica se o Poetry foi instalado corretamente
+
+    - name: Clear Poetry cache
+      run: poetry cache clear pypi --all  # Limpa o cache do Poetry, se necessário
+
     - name: Install dependencies
       run: |
-        poetry install
+        poetry install  # Instala as dependências do Poetry
 
     - name: Set DJANGO_SECRET_KEY
       run: echo "DJANGO_SECRET_KEY=your_secret_key" >> $GITHUB_ENV
