@@ -13,7 +13,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2  # Usando a versão mais estável
         with:
-          python-version: 3.8
+          python-version: 3.12
 
       - name: Cache poetry dependencies
         uses: actions/cache@v2  # Cache para otimizar dependências
