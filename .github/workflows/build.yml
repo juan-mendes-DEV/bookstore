@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9, 3.12]
-        poetry-version: [1.1.4]
+        poetry-version: [1.8, 1.9]  # Atualize para uma versão mais recente do Poetry
 
     runs-on: ubuntu-latest
 
@@ -28,9 +28,6 @@ jobs:
 
     - name: Verify Poetry installation
       run: poetry --version  # Verifica se o Poetry foi instalado corretamente
-
-    - name: Clear Poetry cache
-      run: poetry cache clear pypi --all  # Limpa o cache do Poetry, se necessário
 
     - name: Install dependencies
       run: |
