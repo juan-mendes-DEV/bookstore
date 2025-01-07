@@ -1,4 +1,4 @@
-name: Python Pull Request Workflow
+name: Python Pull Workflow
 
 on: [pull_request]
 
