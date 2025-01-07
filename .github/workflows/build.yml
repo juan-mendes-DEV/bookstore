@@ -7,37 +7,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.12]  # Defina apenas as versões compatíveis aqui
+        python-version: [3.12]
 
     runs-on: ubuntu-latest
 
     steps:
-      # Verifica o repositório
       - uses: actions/checkout@v2
 
-      # Configura o Python
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Instala o Poetry
       - name: Install Poetry
         run: |
           python -m ensurepip
           python -m pip install --upgrade pip
           python -m pip install poetry
 
-      # Verifica se o Poetry foi instalado corretamente
       - name: Verify Poetry installation
         run: poetry --version
 
-      # Instala as dependências do projeto
+      - name: Set environment variables
+        run: echo "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           poetry install --no-cache
 
-      # Executa os testes
       - name: Run tests
         run: |
           poetry run python manage.py test
