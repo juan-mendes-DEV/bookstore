@@ -148,7 +148,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "default_secret_key_for_testing")
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
