@@ -7,36 +7,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9]  # Testar em várias versões do Python
+        python-version: [3.12]  # Defina apenas as versões compatíveis aqui
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      # Verifica o repositório
+      - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      # Configura o Python
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install Poetry
-      run: |
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install poetry
+      # Instala o Poetry
+      - name: Install Poetry
+        run: |
+          python -m ensurepip
+          python -m pip install --upgrade pip
+          python -m pip install poetry
 
-    - name: Verify Poetry installation
-      run: poetry --version
+      # Verifica se o Poetry foi instalado corretamente
+      - name: Verify Poetry installation
+        run: poetry --version
 
-    - name: Clear pip and Poetry cache
-      run: |
-        python -m pip cache purge
-        poetry cache clear pypi --all
+      # Instala as dependências do projeto
+      - name: Install dependencies
+        run: |
+          poetry install --no-cache
 
-    - name: Install dependencies
-      run: |
-        poetry install --no-cache
-
-    - name: Run tests
-      run: |
-        poetry run python manage.py test
+      # Executa os testes
+      - name: Run tests
+        run: |
+          poetry run python manage.py test
