@@ -31,8 +31,9 @@ RUN apt-get update && apt-get -y install libpq-dev gcc \
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
-# Instala as dependências do projeto (incluindo as de desenvolvimento)
-RUN poetry install --no-root
+# Instala as dependências do projeto
+RUN poetry install --only main --no-root
+
 
 # Define o diretório de trabalho da aplicação
 WORKDIR /app
