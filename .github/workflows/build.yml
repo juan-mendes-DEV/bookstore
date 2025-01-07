@@ -1,4 +1,4 @@
-name: Python application
+name: Test Python application with Poetry
 
 on: [push]
 
@@ -7,8 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9]
-        poetry-version: [1.1.4]
+        python-version: [3.8, 3.9]  # Testar em várias versões do Python
 
     runs-on: ubuntu-latest
 
@@ -20,18 +19,24 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install poetry ${{ matrix.poetry-version }}
+    - name: Install Poetry
       run: |
         python -m ensurepip
         python -m pip install --upgrade pip
-        python -m pip install poetry==${{ matrix.poetry-version }}
-    - name: View poetry --help
-      run: poetry --help
+        python -m pip install poetry
+
+    - name: Verify Poetry installation
+      run: poetry --version
+
+    - name: Clear pip and Poetry cache
+      run: |
+        python -m pip cache purge
+        poetry cache clear pypi --all
 
     - name: Install dependencies
-      shell: bash
-      run: python -m poetry install
+      run: |
+        poetry install --no-cache
 
-    - name: Test
+    - name: Run tests
       run: |
         poetry run python manage.py test
