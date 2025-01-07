@@ -156,4 +156,4 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","").split(" ")
 
-#lembrar do pull request
+#lembrar do pull request e mudar final
