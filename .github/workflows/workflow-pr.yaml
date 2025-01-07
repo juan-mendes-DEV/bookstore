@@ -29,6 +29,7 @@ jobs:
           pip install poetry
           poetry install --no-dev  # Instalação sem as dependências de desenvolvimento, caso não precise delas no QA
 
+          
       - name: View poetry --help
         run: poetry --help
 
