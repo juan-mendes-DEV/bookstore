@@ -28,8 +28,8 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
-          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> .env
+          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> $GITHUB_ENV
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  # Passando o token como variável de ambiente
 
@@ -45,4 +45,4 @@ jobs:
         run: |
           railway up --service bookstore
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  # Passando o token
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  
