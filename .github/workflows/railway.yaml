@@ -28,16 +28,14 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV
-          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> .env
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  # Passando o token como variável de ambiente
 
       - name: Install Railway CLI
         run: |
           curl -fsSL https://railway.app/install.sh | sh
-
-      - name: Authenticate with Railway
-        run: |
-          railway login --token ${{ secrets.RAILWAY_TOKEN }}  # Usando o token diretamente no comando de login
 
       - name: Run Django tests
         run: |
@@ -46,3 +44,5 @@ jobs:
       - name: Deploy with Railway CLI
         run: |
           railway up --service bookstore
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  # Passando o token
