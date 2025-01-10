@@ -42,7 +42,7 @@ jobs:
 
       - name: Deploy with Railway CLI
         run: |
-          railway up --service bookstore-app
+          railway up --service bookstore
           
 
     # test
