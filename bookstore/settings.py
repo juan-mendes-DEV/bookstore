@@ -103,7 +103,7 @@ INTERNAL_IPS = [
 ]
 
 
-SECRET_KEY = env("SECRET_KEY", default="o0$h(0mu3y--mlngmpkq*m579-f-!vd*_p*9t0b14f!=rnudu$")
+SECRET_KEY = os.getenv("SECRET_KEY", default="o0$h(0mu3y--mlngmpkq*m579-f-!vd*_p*9t0b14f!=rnudu$")
 
 ALLOWED_HOSTS = [
     "bookstore-production-68f3.up.railway.app",
