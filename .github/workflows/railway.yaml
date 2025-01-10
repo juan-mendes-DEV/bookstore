@@ -28,9 +28,9 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV
-          echo "RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}" >> $GITHUB_ENV
-          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+          echo "RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}" >> .env
+          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> .env
 
       - name: Install Railway CLI
         run: |
