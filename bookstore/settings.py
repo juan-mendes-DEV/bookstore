@@ -60,7 +60,7 @@ WSGI_APPLICATION = "bookstore.wsgi.application"
 
 # Banco de dados PostgreSQL com environ
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgresql://postgres:jlqQfZFBsZXGteHpuxKiVDVKrcAWMcLx@autorack.proxy.rlwy.net:16360/railway")
+    "default": env.db("DATABASE_URL", default="postgresql://postgres:rqDCvjMtEBIxwdOIhIswiiLsCslBSiNy@autorack.proxy.rlwy.net:16728/railway")
 }
 
 if 'test' in sys.argv:  # Durante os testes, utiliza o SQLite

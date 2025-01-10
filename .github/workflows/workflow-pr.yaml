@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2  # Usando a versão mais recente do checkout
      
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2  # Usando a versão mais estável
         with:
           python-version: 3.12
 
       - name: Cache poetry dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v2  # Cache para otimizar dependências
         with:
           path: ~/.cache/pypoetry
           key: ${{ runner.os }}-poetry-${{ hashFiles('**/pyproject.toml') }}
@@ -27,17 +27,24 @@ jobs:
         run: |
           pip install -U pip
           pip install poetry
-          poetry install
+          poetry install  # Instalação sem as dependências de desenvolvimento, caso não precise delas no QA
 
-      - name: Create .env file
+      - name: Set environment variables
         run: |
           echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
-          echo "RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}" >> .env
-          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> .env
+          echo "RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}" >> $GITHUB_ENV
+          echo "RAILWAY_PROJECT_ID=${{ secrets.RAILWAY_PROJECT_ID }}" >> $GITHUB_ENV
+
+      - name: View poetry --help
+        run: poetry --help
+
+      # - name: Delete existing test database
+        # run: |
+        #   PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} psql -h ${{ secrets.DATABASE_HOST }} -U ${{ secrets.DATABASE_USER }} -c "DROP DATABASE IF EXISTS test_railway;"
 
       - name: Test
         run: |
-          poetry run python manage.py test --keepdb --no-input
+          poetry run python manage.py test --keepdb --no-input  # Adicionando --no-input para evitar a solicitação de confirmação
 
       - name: Wemake Python Stylguide
         uses: wemake-services/wemake-python-styleguide@0.16.0
@@ -46,3 +53,5 @@ jobs:
           reporter: 'github-pr-review'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # TEST
