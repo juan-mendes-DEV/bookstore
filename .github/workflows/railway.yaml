@@ -34,7 +34,8 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -fsSL https://railway.app/install.sh | sh
+          curl -fsSL https://railway.app/install.sh | VERSION=v1.6.0 sh
+
 
       - name: Run Django tests
         run: |
